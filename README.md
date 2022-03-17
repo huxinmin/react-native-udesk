@@ -1,19 +1,19 @@
-# @wanmi/react-native-udesk
+# rn-udesk
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
-[![npm](https://img.shields.io/badge/npm-1.0.6-green)](https://www.npmjs.com/package/@wanmi/react-native-udesk)
+[![npm](https://img.shields.io/badge/npm-1.0.0-green)](https://www.npmjs.com/package/rn-udesk)
 
 ## Getting started
 
-`$ npm install @wanmi/react-native-udesk --save`
+`$ npm install rn-udesk --save`
 
 ### Mostly automatic installation
 
-`$ react-native link @wanmi/react-native-udesk`
+`$ react-native link rn-udesk-udesk`
 
 ## Usage
 ```js
-import ReactNativeUdesk from '@wanmi/react-native-udesk';
+import ReactNativeUdesk from 'rn-udesk';
 
 // 以下是ReactNativeUdesk可使用的方法
 
