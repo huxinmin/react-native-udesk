@@ -1,8 +1,8 @@
 {
-	"name": "@wanmi/react-native-udesk",
+	"name": "rn-udesk",
 	"title": "React Native Udesk",
 	"version": "1.0.0",
-	"description": "@wanmi/react-native-udesk",
+	"description": "rn-udesk",
 	"main": "index.js",
 	"files": [
 		"README.md",
