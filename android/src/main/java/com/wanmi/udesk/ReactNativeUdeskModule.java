@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 
 import cn.udesk.UdeskSDKManager;
 import cn.udesk.config.UdeskConfig;
+import udesk.core.LocalManageUtil;
 import udesk.core.UdeskConst;
 
 public class ReactNativeUdeskModule extends ReactContextBaseJavaModule {
@@ -49,7 +50,8 @@ public class ReactNativeUdeskModule extends ReactContextBaseJavaModule {
             // info.put(UdeskConst.UdeskUserInfo.CUSTOMER_TOKEN, custom_token);
             // 只设置用户基本信息的配置
             UdeskConfig.Builder builder = new UdeskConfig.Builder();
-            builder.setDefaultUserInfo(info).setLocale(Locale.CHINA);
+            builder.setDefaultUserInfo(info);
+            LocalManageUtil.saveSelectLanguage(getApplicationContext(), Locale.CHINA);
             UdeskSDKManager.getInstance().entryChat(getApplicationContext(), builder.build(), sdkToken);
             promise.resolve(true);
         } catch (Exception e) {

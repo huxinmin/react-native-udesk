@@ -1,7 +1,7 @@
 {
   "name": "rn-udesk",
   "title": "React Native Udesk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "rn-udesk",
   "main": "index.js",
   "files": [
