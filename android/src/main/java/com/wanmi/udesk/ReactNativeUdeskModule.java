@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -48,7 +49,7 @@ public class ReactNativeUdeskModule extends ReactContextBaseJavaModule {
             // info.put(UdeskConst.UdeskUserInfo.CUSTOMER_TOKEN, custom_token);
             // 只设置用户基本信息的配置
             UdeskConfig.Builder builder = new UdeskConfig.Builder();
-            builder.setDefaultUserInfo(info);
+            builder.setDefaultUserInfo(info).setLocale(Locale.CHINA);
             UdeskSDKManager.getInstance().entryChat(getApplicationContext(), builder.build(), sdkToken);
             promise.resolve(true);
         } catch (Exception e) {

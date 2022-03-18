@@ -29,6 +29,7 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)data
    [UdeskManager initWithOrganization:organization customer:customer];
 
   //使用push
+  sdkConfig.language = @"zh-cn";
   UdeskSDKManager *sdkManager = [[UdeskSDKManager alloc] initWithSDKStyle:[UdeskSDKStyle customStyle] sdkConfig:[UdeskSDKConfig customConfig]];
 //  [sdkManager pushUdeskInViewController:self completion:nil];
 
@@ -42,33 +43,33 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)data
 //获取当前屏幕显示的viewcontroller
 + (UIViewController *)getCurrentVC {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
+
     UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
-    
+
     return currentVC;
 }
 
 + (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC {
     UIViewController *currentVC;
-    
+
     if ([rootVC presentedViewController]) {
-        
+
         rootVC = [rootVC presentedViewController];
     }
-    
+
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
-        
+
         currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
-        
+
     } else if ([rootVC isKindOfClass:[UINavigationController class]]){
-        
+
         currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
-        
+
     } else {
-        
+
         currentVC = rootVC;
     }
-    
+
     return currentVC;
 }
 
