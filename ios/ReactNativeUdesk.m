@@ -27,7 +27,7 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)data
 
    //初始化sdk
    [UdeskManager initWithOrganization:organization customer:customer];
-
+   UdeskSDKConfig *sdkConfig = [UdeskSDKConfig customConfig];
   //使用push
   sdkConfig.language = @"zh-cn";
   UdeskSDKManager *sdkManager = [[UdeskSDKManager alloc] initWithSDKStyle:[UdeskSDKStyle customStyle] sdkConfig:[UdeskSDKConfig customConfig]];
