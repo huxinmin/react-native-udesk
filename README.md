@@ -36,5 +36,17 @@ export interface IUserInfo {
  * 开始聊天
  * @param {IUserInfo} userInfo 用户信息
  */
-ReactNativeUdesk.startChat(userInfo)
+ ReactNativeUdesk.startChat(userInfo)
+
+/**
+ * 发送咨询信息，例如商品订单
+ */
+
+export interface IItemInfo {
+  title: string;
+  subTitle: string;
+  img: string;
+  url: string;
+}
+ ReactNativeUdesk.sendCommodityMessage(userInfo, itemInfo);
 ```

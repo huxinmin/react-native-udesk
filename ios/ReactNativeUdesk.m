@@ -39,6 +39,34 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)data
   resolve(@(YES));
 }
 
+RCT_EXPORT_METHOD(sendCommodityMessage:(NSDictionary *)data (NSDictionary *)dict
+                  :(RCTPromiseResolveBlock)resolve
+                  :(RCTPromiseRejectBlock)reject){
+
+  //初始化公司（appKey、appID、domain都是必传字段）
+   UdeskOrganization *organization = [[UdeskOrganization alloc] initWithDomain:data[@"domain"] appKey:data[@"appKey"] appId:data[@"appId"]];
+
+   UdeskCustomer *customer = [UdeskCustomer new];
+   customer.sdkToken = data[@"sdkToken"];
+   customer.nickName = data[@"nickname"];
+
+   //初始化sdk
+   [UdeskManager initWithOrganization:organization customer:customer];
+   UdeskSDKConfig *sdkConfig = [UdeskSDKConfig customConfig];
+  //使用push
+  sdkConfig.language = @"zh-cn";
+  sdkConfig.productDictionary.productImageUrl = dict[@"img"];
+  sdkConfig.productDictionary.productTitle = dict[@"title"];
+  sdkConfig.productDictionary.productDetail = dict[@"subTitle"];
+  sdkConfig.productDictionary.productURL = dict[@"url"];
+  UdeskSDKManager *sdkManager = [[UdeskSDKManager alloc] initWithSDKStyle:[UdeskSDKStyle customStyle] sdkConfig:[UdeskSDKConfig customConfig]];
+//  [sdkManager pushUdeskInViewController:self completion:nil];
+
+  //使用present
+  [sdkManager presentUdeskInViewController:[ReactNativeUdesk getCurrentVC] completion:nil];
+
+  resolve(@(YES));
+}
 
 //获取当前屏幕显示的viewcontroller
 + (UIViewController *)getCurrentVC {

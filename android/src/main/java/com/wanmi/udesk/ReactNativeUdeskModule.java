@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import cn.udesk.UdeskSDKManager;
+import cn.udesk.model.UdeskCommodityItem;
 import cn.udesk.config.UdeskConfig;
 import udesk.core.LocalManageUtil;
 import udesk.core.UdeskConst;
@@ -51,6 +52,44 @@ public class ReactNativeUdeskModule extends ReactContextBaseJavaModule {
             // 只设置用户基本信息的配置
             UdeskConfig.Builder builder = new UdeskConfig.Builder();
             builder.setDefaultUserInfo(info);
+            LocalManageUtil.saveSelectLanguage(getApplicationContext(), Locale.CHINA);
+            UdeskSDKManager.getInstance().entryChat(getApplicationContext(), builder.build(), sdkToken);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.resolve(false);
+        }
+    }
+
+    @ReactMethod
+    public void sendCommodityMessage(@Nullable ReadableMap userInfo, @Nullable ReadableMap itemInfo, Promise promise) {
+        try {
+            init(userInfo);
+            // 默认系统字段是Udesk已定义好的字段，开发者可以直接传入这些用户信息，供客服查看。
+            Map<String, String> info = new HashMap<>();
+            info.put(UdeskConst.UdeskUserInfo.USER_SDK_TOKEN, sdkToken);
+            //以下信息是可选
+            if (userInfo != null) {
+                info.put(UdeskConst.UdeskUserInfo.NICK_NAME, getReadableMapString(userInfo, "nickename", ""));
+                info.put(UdeskConst.UdeskUserInfo.EMAIL, getReadableMapString(userInfo, "email", ""));
+                info.put(UdeskConst.UdeskUserInfo.CELLPHONE, getReadableMapString(userInfo, "phone", ""));
+                info.put(UdeskConst.UdeskUserInfo.DESCRIPTION, getReadableMapString(userInfo, "description", ""));
+            }
+            // info.put(UdeskConst.UdeskUserInfo.CUSTOMER_TOKEN, custom_token);
+            // 只设置用户基本信息的配置
+            UdeskConfig.Builder builder = new UdeskConfig.Builder();
+            builder.setDefaultUserInfo(info);
+            //创建咨询对象的实例
+            UdeskCommodityItem item = new UdeskCommodityItem();
+            // 咨询对象主标题
+            item.setTitle(getReadableMapString(itemInfo, "title", ""));
+            //咨询对象描述
+            item.setSubTitle(getReadableMapString(itemInfo, "subTitle", ""));
+            //左侧图片
+            item.setThumbHttpUrl(getReadableMapString(itemInfo, "img", ""));
+            // 咨询对象网络链接
+            item.setCommodityUrl(getReadableMapString(itemInfo, "url", ""));
+
+            builder.setCommodity(item);
             LocalManageUtil.saveSelectLanguage(getApplicationContext(), Locale.CHINA);
             UdeskSDKManager.getInstance().entryChat(getApplicationContext(), builder.build(), sdkToken);
             promise.resolve(true);
